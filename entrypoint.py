@@ -9,7 +9,7 @@ def compile(filename: str, options: list[str]) -> bool:
 
     Returns True if the typst command exited with status 0, False otherwise.
     """
-    command = ["typst"] + ["compile", filename] + options
+    command = ["typst"] + ["compile", filename] + options 
     logging.debug("Running: " + " ".join(command))
 
     result = subprocess.run(command, capture_output=True, text=True)
@@ -24,7 +24,7 @@ def compile(filename: str, options: list[str]) -> bool:
 
 def main():
 
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
 
     # Parse the positional arguments, expected in the following form
     #   1. The Typst files to compile in a line separated string
