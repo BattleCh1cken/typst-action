@@ -10,13 +10,15 @@ inputs:
     description: >
       The typst file to be compiled. There can be multiple ones separated by new lines.
     required: true
-  options:
+  base_options: >
+      The options passed to the base typst command.
+  compile_options:
     description: >
-      Line separated array of global options to pass to typst. Compared to a CLI call, with space
+      Line separated array of global options to pass to typst's compile subcommand. Compared to a CLI call, with space
       separated field, each file must be on its own lines. For example, to pass an additional font
       path using the --font-path global command, the CLI call is
 
-        typst --font-path fonts main.typ
+        typst compile main.typ --font_path fonts
 
       For the action, one must use one line per argument to ensure correct parsing, in the following
       form:
@@ -35,4 +37,5 @@ runs:
   image: Dockerfile
   args:
     - ${{ inputs.source_file }}
-    - ${{ inputs.options }}
+    - ${{ inputs.base_options }}
+    - ${{ inputs.compile_options }}

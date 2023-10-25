@@ -4,12 +4,12 @@ import subprocess
 import sys
 
 
-def compile(filename: str, options: list[str]) -> bool:
+def compile(filename: str, base_options: list[str], compile_options: list[str]) -> bool:
     """Compiles a Typst file with the specified global options.
 
     Returns True if the typst command exited with status 0, False otherwise.
     """
-    command = ["typst"] + ["compile", filename] + options 
+    command = ["typst"] + base_options + ["compile", filename] + compile_options 
     logging.debug("Running: " + " ".join(command))
 
     result = subprocess.run(command, capture_output=True, text=True)
@@ -31,7 +31,8 @@ def main():
     #   2. The global Typst CLI options, in a line separated string. It means each
     #      whitespace separated field should be on its own line.
     source_files = sys.argv[1].splitlines()
-    options = sys.argv[2].splitlines()
+    base_options = sys.argv[2].splitlines()
+    compile_options = sys.argv[3].splitlines()
 
     version = subprocess.run(
         ["typst", "--version"], capture_output=True, text=True
@@ -45,7 +46,7 @@ def main():
         if filename == "":
             continue
         logging.info(f"Compiling {filename}…")
-        success[filename] = compile(filename, options)
+        success[filename] = compile(filename, base_options, compile_options)
 
     # Log status of each input files.
     for filename, status in success.items():
