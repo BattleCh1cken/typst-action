@@ -10,8 +10,10 @@ inputs:
     description: >
       The typst file to be compiled. There can be multiple ones separated by new lines.
     required: true
-  base_options: >
+  base_options: 
+    description: >
       The options passed to the base typst command.
+    required: false
   compile_options:
     description: >
       Line separated array of global options to pass to typst's compile subcommand. Compared to a CLI call, with space
